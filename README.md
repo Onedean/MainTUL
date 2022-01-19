@@ -23,7 +23,7 @@ For IJCAI'22 review
 
 ## Models
 
-#### Pretrained Model: (I will be updata link later)
+#### Pretrained Model: (Due to the limitation of upload speed, I will update the link as soon as possible)
 - Foursquare-mini:<>
 - Foursquare-all:<>
 - Weeplaces-mini:<>

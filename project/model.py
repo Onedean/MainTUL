@@ -44,15 +44,14 @@ class PositionalEncoding(nn.Module):
 class TemporalEncoding(nn.Module):
     def __init__(self, embed_size):
         super().__init__()
-        self.omega = nn.Parameter((torch.from_numpy(1 / 10 ** np.linspace(0, 9, embed_size))).float(), requires_grad=True)
-        self.bias = nn.Parameter(torch.zeros(embed_size).float(), requires_grad=True)
-        self.div_term = math.sqrt(1. / embed_size)
+        self.w = nn.Parameter((torch.from_numpy(1 / 10 ** np.linspace(0, 9, embed_size))).float(), requires_grad=True)
+        self.b = nn.Parameter(torch.zeros(embed_size).float(), requires_grad=True)
+        self.div = math.sqrt(1. / embed_size)
 
     def forward(self, x, **kwargs):
         timestamp = kwargs['time_seq']  # (batch, seq_len)
-        time_encode = timestamp.unsqueeze(-1) * self.omega.reshape(1, 1, -1) + self.bias.reshape(1, 1, -1)
-        time_encode = torch.cos(time_encode)
-        return self.div_term * time_encode
+        time_encode = torch.cos(timestamp.unsqueeze(-1) * self.w.reshape(1, 1, -1) + self.b.reshape(1, 1, -1))
+        return self.div * time_encode
 
 
 class LstmTimeAwareEmbedding(nn.Module):
