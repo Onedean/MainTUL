@@ -1,0 +1,5 @@
+## ignore large checkpoint and compiled file for upload
+
+*.pt
+
+__pycache__
