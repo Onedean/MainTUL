@@ -21,18 +21,17 @@ For IJCAI'22 review
 - Foursquare:  <http://sites.google.com/site/yangdingqi/home/foursquare-dataset>
 - Weeplaces: <http://www.yongliu.org/datasets.html>
 
-## Models
+#### Prepocessed data：
 
-#### Pretrained Model: (Due to the limitation of upload speed, I will update the link as soon as possible)
-- Foursquare-mini:<>
-- Foursquare-all:<>
-- Weeplaces-mini:<>
-- Weeplaces-all:<>
+- The prepocessed data is uploaded in the folder [data](./data).
+- We provide two forms for each dataset, one is full data and the other is sampled small data (for quick testing).
 
 ## Usage
-- make preprocessing original data, the processed format is like the data in folder [data](./data). (if you want user other dataset)
-- run main.py
+- Preprocess original data. (If you want to use other dataset, please preprocess the dataset into the data format under the folder data.)
+- Run main.py
 - Adjust the hyperparameters and strategies according to the needs
+  - e.g. ```python main.py --temperature 0.1/2/5/10/15 --lambda_parm 1/5/10/15/20```
+  
 
 ## Citation
 
