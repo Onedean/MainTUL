@@ -32,17 +32,17 @@ For IJCAI'22 review
 - Adjust the hyperparameters and strategies according to the needs
   - e.g. ```python main.py --temperature 0.1/2/5/10/15 --lambda_parm 1/5/10/15/20```
 
-## Parameter setting of comparison baselines
-  + tradition methods:  
-    DT  (Entropy)  
-    LDA (LDA Matrix solver: SVD)  
-    LCSS  
-    SR (spatial signature / Reduced (m = 10))  
+## Parameter setting of baselines
+  + Tradition Methods:  
+    + DT: (Entropy)  
+    + LDA: (LDA Matrix solver: SVD)  
+    + LCSS  
+    + SR: (spatial signature / Reduced (m = 10))  
   
-  + deep learning methods:  
-    TULER and its variants: (LR: 0.00095 / Dimension: 250 / Hidden size: 300 / Dropout rate: 0.5 / Layers: 2)  
-    TULVAE: (LR: 0.001 / decays: 0.9 / $\beta$: 0.5-1 / POI Dimension: 250 / Hidden size: 300 / Latent Variable Dimension: 100)  
-    DeepTUL: ($D_p$: 64 / $D_t$: 32 / $D_u$: 32 / LR: 0.005/ decays: 0.5 / time interval: 120)
+  + Deep Learning Methods:  
+    + TULER and its variants: (LR: 0.00095 / Dimension: 250 / Hidden size: 300 / Dropout rate: 0.5 / Layers: 2)  
+    + TULVAE: (LR: 0.001 / decays: 0.9 / $\beta$: 0.5-1 / POI Dimension: 250 / Hidden size: 300 / Latent Variable Dimension: 100)  
+    + DeepTUL: ($D_p$: 64 / $D_t$: 32 / $D_u$: 32 / LR: 0.005/ decays: 0.5 / time interval: 120)
 
 ## Citation
 
