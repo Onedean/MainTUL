@@ -39,7 +39,7 @@ class TulCollator(object):
         longterm_len = []
         max_len = 0
         for idx, user_id in enumerate(one_batch_label):
-            #------------------ augmentation strategy 1 ------------------#
+            
             # start_idx, end_idx = one_batch_idx[idx] - int(self.long_term_num / 2), one_batch_idx[idx] + int(self.long_term_num / 2) + 1
             # if start_idx < 0:
             #     start_idx = 0
@@ -49,7 +49,6 @@ class TulCollator(object):
             #start_idx = 0 if one_batch_idx[idx] - self.long_term_num < 0 else one_batch_idx[idx] - self.long_term_num
             #long_term_idx = range(start_idx, one_batch_idx[idx]+1)
             
-            #------------------ augmentation strategy 2 ------------------#
             long_term_idx = sorted(set(random.sample(range(0, len(self.user_traj_train[user_id])), self.long_term_num) + [one_batch_idx[idx]]))
             
             traj_seq, time_seq, category_seq = [], [], []

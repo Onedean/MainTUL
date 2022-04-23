@@ -1,9 +1,6 @@
 # MainTUL
 
-PyTorch implementation for paper: Mutual Distillation Learning Network for Trajectory-User Linking
-
-For IJCAI'22 review
-
+PyTorch implementation for paper: Mutual Distillation Learning Network for Trajectory-User Linking (IJCAI'22)
 
 ## Dependencies
 
@@ -49,9 +46,12 @@ For IJCAI'22 review
 If you want to use our codes in your research, please cite:
 
 ```
-@article{MainTUL22,
-  title     = {Mutual Distillation Learning Network for Trajectory-User Linking},
-  author    = {Anonymous}
+@inproceedings{chen2022MainTUL,
+  title={Mutual Distillation Learning Network for Trajectory-User Linking},
+  author={Chen, Wei and Li, Shuzhe and Huang, Chao and Yu, Yanwei and Jiang, Yongguo and Dong, Junyu},
+  booktitle={IJCAI},
+  year={2022}
+}
 ```
 
 ## Acknowledgement

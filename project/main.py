@@ -94,10 +94,8 @@ def train_model(train_dataset, train_sampler, valid_sampler, model, optimizer, u
 
         model.train()
         train_dataloader = get_dataloader(traj_dataset = train_dataset, load_datatype='train', batch_size=args.batch_size, sampler=train_sampler, long_term_num=args.long_term_num, user_traj_train=user_traj_train)
-        loss_train_list, y_predict_list, y_true_list, acc1_list, acc5_list = [], [], [], [], []
-
-        teacher_y_predict_list, teacher_acc1_list, teacher_acc5_list = [], [], []
-
+        loss_train_list = []
+        
         for batch_idx, (current_poi_seq, current_category_seq, current_hour_seq, current_time_seq, current_len, longterm_poi_seq, longterm_category_seq, longterm_hour_seq, longterm_time_seq, longterm_len, one_batch_label) in enumerate(tqdm(train_dataloader)):
 
             current_poi_seq, current_category_seq, current_hour_seq, current_time_seq = current_poi_seq.to(devices[0]), current_category_seq.to(devices[0]), current_hour_seq.to(devices[0]), current_time_seq.to(devices[0])
@@ -113,14 +111,6 @@ def train_model(train_dataset, train_sampler, valid_sampler, model, optimizer, u
             loss_dis_1 = compute_loss_dis(student_output, teacher_output, temperature=args.temperature)
             loss_sum_1 = loss_ce_1 + args.lambda_parm * loss_dis_1
 
-            y_predict_list.extend(torch.max(student_output, 1)[1].cpu().numpy().tolist())
-            y_true_list.extend(one_batch_label.cpu().numpy().tolist())
-            acc1_list.extend(accuracy_1(student_output, one_batch_label).cpu().numpy())
-            acc5_list.extend(accuracy_5(student_output, one_batch_label).cpu().numpy())
-            macro_p = precision_score(y_true_list, y_predict_list, average='macro')
-            macro_r = recall_score(y_true_list, y_predict_list, average='macro')
-            macro_f1 = f1_score( y_true_list, y_predict_list, average='macro')
-
             student_output, teacher_output = model(longterm_poi_seq, longterm_category_seq, longterm_hour_seq, longterm_len, current_poi_seq, current_category_seq, current_hour_seq, current_time_seq, current_len)
 
             loss_stu_ce_2 = compute_loss_student_ce(student_output, one_batch_label)
@@ -129,13 +119,6 @@ def train_model(train_dataset, train_sampler, valid_sampler, model, optimizer, u
             
             loss_dis_2 = compute_loss_dis(teacher_output, student_output, temperature=args.temperature)
             loss_sum_2 = loss_ce_2 + args.lambda_parm * loss_dis_2
-
-            teacher_y_predict_list.extend(torch.max(teacher_output, 1)[1].cpu().numpy().tolist())
-            teacher_acc1_list.extend(accuracy_1(teacher_output, one_batch_label).cpu().numpy())
-            teacher_acc5_list.extend(accuracy_5(teacher_output, one_batch_label).cpu().numpy())
-            teacher_macro_p = precision_score(y_true_list, teacher_y_predict_list, average='macro')
-            teacher_macro_r = recall_score(y_true_list, teacher_y_predict_list, average='macro')
-            teacher_macro_f1 = f1_score( y_true_list, teacher_y_predict_list, average='macro')
             
             loss_sum = loss_sum_1 + loss_sum_2
 
@@ -147,8 +130,8 @@ def train_model(train_dataset, train_sampler, valid_sampler, model, optimizer, u
             
             if not(batch_idx % 40):
                 output_content = "Train epoch:{} batch:{} loss_stu_ce:{:.6f} loss_tea_ce:{:.6f} loss_dis:{:.6f} loss_sum:{:.6f} loss:{:.6f} acc@1:{:.6f} acc@5:{:.6f} macro_p:{:.6f} macro_r:{:.6f} macro_f1:{:.6f}"
-                logger.info(output_content.format(epoch_idx, batch_idx, loss_stu_ce_1.item(), loss_tea_ce_1.item(), loss_dis_1.item(), loss_sum_1.item(), np.mean(loss_train_list), np.mean(acc1_list), np.mean(acc5_list), macro_p, macro_r, macro_f1))
-                logger.info(output_content.format(epoch_idx, batch_idx, loss_stu_ce_2.item(), loss_tea_ce_2.item(), loss_dis_2.item(), loss_sum_2.item(), np.mean(loss_train_list), np.mean(teacher_acc1_list), np.mean(teacher_acc5_list), teacher_macro_p, teacher_macro_r, teacher_macro_f1))
+                logger.info(output_content.format(epoch_idx, batch_idx, loss_stu_ce_1.item(), loss_tea_ce_1.item(), loss_dis_1.item(), loss_sum_1.item(), np.mean(loss_train_list)))
+                logger.info(output_content.format(epoch_idx, batch_idx, loss_stu_ce_2.item(), loss_tea_ce_2.item(), loss_dis_2.item(), loss_sum_2.item(), np.mean(loss_train_list)))
         
 
         model.eval()
