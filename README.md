@@ -1,7 +1,7 @@
 # MainTUL
-
+<!--
 PyTorch implementation for paper: Mutual Distillation Learning Network for Trajectory-User Linking (IJCAI'22)
-
+ -->
 ## Dependencies
 
 - Python 3.9
@@ -40,7 +40,7 @@ PyTorch implementation for paper: Mutual Distillation Learning Network for Traje
     + TULER and its variants: (LR: 0.00095 / Dimension: 250 / Hidden size: 300 / Dropout rate: 0.5 / Layers: 2)  
     + TULVAE: (LR: 0.001 / decays: 0.9 / $\beta$: 0.5-1 / POI Dimension: 250 / Hidden size: 300 / Latent Variable Dimension: 100)  
     + DeepTUL: ($D_p$: 64 / $D_t$: 32 / $D_u$: 32 / LR: 0.005/ decays: 0.5 / time interval: 120)
-
+<!--
 ## Citation
 
 If you want to use our codes in your research, please cite:
@@ -53,5 +53,5 @@ If you want to use our codes in your research, please cite:
   year={2022}
 }
 ```
-
+ -->
 ## Acknowledgement
